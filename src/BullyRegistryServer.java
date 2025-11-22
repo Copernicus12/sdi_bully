@@ -62,12 +62,10 @@ public class BullyRegistryServer {
         ServerSocket serverSocket = new ServerSocket(listenPort);
         System.out.println("=== BullyRegistryServer pornit pe port " + listenPort + " ===");
 
-        // thread pentru PING periodic
         Thread pingThread = new Thread(this::pingLoop, "PING-Thread");
         pingThread.setDaemon(true);
         pingThread.start();
 
-        // loop pentru conexiuni noi
         while (true) {
             Socket s = serverSocket.accept();
             Thread t = new Thread(() -> handleConnection(s), "ClientHandler");
